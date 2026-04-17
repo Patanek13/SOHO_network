@@ -1,0 +1,21 @@
+services:
+  app:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: reverse_proxy
+    environment:
+      - TZ=Europe/Prague
+    restart: unless-stopped
+    ports:
+      - '80:80'      # Public HTTP traffic
+      - '443:443'    # Public HTTPS traffic
+      # '81:81'      # Administration interface NPM
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+    networks:
+      soho_net:
+        ipv4_address: 172.19.0.2
+
+networks:
+  soho_net:
+    external: true

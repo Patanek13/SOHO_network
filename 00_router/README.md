@@ -41,7 +41,7 @@ Remote server administration is a critical point. The SSH configuration has been
 
 ## 🧱 2. Firewall Configuration (UFW)
 
-The firewall is configured to minimize the attack surface. Only services necessary for operation are publicly accessible.
+The firewall is configured to minimize the attack possibilities. Only services necessary for operation are publicly accessible.
 
 ### Overview of Allowed Ports
 
