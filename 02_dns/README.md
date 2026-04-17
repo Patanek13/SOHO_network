@@ -63,6 +63,6 @@ The system uses a combination of aggressive blocklists and **DNSSEC** validation
 
 ## 🔍 Verifying functionality
 
-You can verify the encrypted connection by capturing traffic on the Raspberry Pi’s external interface (e.g., using `tcpdump`).
+We can verify the encrypted connection by capturing traffic on the Raspberry Pi’s external interface (e.g., using `tcpdump`).
 
 * **Observation:** No traffic is leaving for the internet on port 53 (standard DNS). All DNS communication takes place exclusively on port 853 (TLS).

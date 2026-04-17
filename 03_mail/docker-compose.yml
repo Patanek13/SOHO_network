@@ -1,0 +1,23 @@
+services:
+  stalwart-mail:
+    image: stalwartlabs/stalwart:latest
+    container_name: stalwart
+    dns:
+      - 192.168.1.69
+    restart: unless-stopped
+    ports:
+      - "25:25"
+      - "143:143"
+      - "587:587"
+      - "993:993"
+      - "465:465"
+      - "4000:8080"
+    volumes:
+      - ./stalwart-data:/opt/stalwart
+    networks:
+      soho_net:
+        ipv4_address: 172.19.0.5
+
+networks:
+  soho_net:
+   external: true
