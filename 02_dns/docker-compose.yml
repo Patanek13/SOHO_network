@@ -1,0 +1,33 @@
+services:
+  pihole:
+    image: pihole/pihole:latest
+    container_name: dns_server
+    ports:
+      - "53:53/tcp"     # DNS port
+      - "53:53/udp"     # DNS port
+      # "8080:80"       # Web administration Pi-hole
+    environment:
+      TZ: 'Europe/Prague'
+      FTLCONF_webserver_api_password: ${PIHOLE_PASSWORD}
+      FTLCONF_dns_upstreams: '172.19.0.8' # Forward to dnsproxy
+    volumes:
+      - './etc-pihole:/etc/pihole'
+      - './etc-dnsmasq.d:/etc/dnsmasq.d'
+    restart: unless-stopped
+    networks:
+      soho_net:
+        ipv4_address: 172.19.0.4
+
+  dnsproxy:
+    image: adguard/dnsproxy:latest
+    container_name: dnsproxy
+    restart: unless-stopped
+    # Using encrypted Cloudflare (tls://1.1.1.1) and listen on port 53"
+    command: -v -u tls://1.1.1.1 -u tls://1.0.0.1 -l 0.0.0.0 -p 53
+    networks:
+      soho_net:
+        ipv4_address: 172.19.0.8
+
+networks:
+  soho_net:
+    external: true
