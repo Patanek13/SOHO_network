@@ -1,0 +1,27 @@
+services:
+  wg-easy:
+    environment:
+      - WG_HOST=PSSSST  # Physical address of rpi
+      - PASSWORD_HASH=$$2a$$12$$IWgoCJA7lvKDiY2WRx2nGOoEFKLBfscOOVoYHWpYmNrIiACBMhRdq
+      - WG_DEFAULT_DNS=172.19.0.4  # Use our dns 
+    image: ghcr.io/wg-easy/wg-easy
+    container_name: vpn_server
+    volumes:
+      - ./data:/etc/wireguard
+    ports:
+      - "51820:51820/udp" # Encrypted tunnel
+      #- "51821:51821/tcp" # Web administration 
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    sysctls:
+      - net.ipv4.ip_forward=1
+      - net.ipv4.conf.all.src_valid_mark=1
+    networks:
+      soho_net:
+        ipv4_address: 172.19.0.6
+
+networks:
+  soho_net:
+    external: true
