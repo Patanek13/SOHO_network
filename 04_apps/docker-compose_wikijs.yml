@@ -1,0 +1,36 @@
+services:
+  wiki-db:
+    image: postgres:15-alpine
+    container_name: wiki-db
+    environment:
+      - POSTGRES_DB=wikijs
+      - POSTGRES_USER=wikijs
+      - POSTGRES_PASSWORD=${DB_PWD}
+    volumes:
+      - ./wiki-db:/var/lib/postgresql/data
+    networks:
+      soho_net:
+        ipv4_address: 172.19.0.13
+
+  wikijs:
+    image: ghcr.io/requarks/wiki:2
+    container_name: wikijs
+    depends_on:
+      - wiki-db
+    environment:
+      - DB_TYPE=postgres
+      - DB_HOST=wiki-db
+      - DB_PORT=5432
+      - DB_USER=wikijs
+      - DB_PASS=${DB_PWD}
+      - DB_NAME=wikijs
+    ports:
+      - "8080:3000"
+    networks:
+      soho_net:
+        ipv4_address: 172.19.0.3
+    restart: unless-stopped
+
+networks:
+  soho_net:
+    external: true

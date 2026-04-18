@@ -65,7 +65,7 @@ Fail2ban is used to eliminate botnets and vulnerability scanners.
 
 ### 🛡️ Whitelisting
 
-The `ignoreip` parameter is defined in the `jail.local` file to prevent the administrator from being blocked when working from the home network or a VPN (`127.0.0.1`, `192.168.1.0/24`, `10.8.0.1/24`, `172.19.0.0/25`).
+The `ignoreip` parameter is defined in the `jail.conf` file to prevent the administrator from being blocked when working from the home network or a VPN (`127.0.0.1`, `192.168.1.0/24`, `10.8.0.1/24`, `172.19.0.0/25`).
 
 ---
 
@@ -74,7 +74,7 @@ The `ignoreip` parameter is defined in the `jail.local` file to prevent the admi
 * `README.md`: This guide.
 * `ufw_status.conf`: A direct output of the firewall status from the system.
 * `sshd_config`: Secure SSH server configuration.
-* `jail.local`: Fail2ban configuration file.
+* `jail.conf`: Fail2ban configuration file.
 
 ---
 
